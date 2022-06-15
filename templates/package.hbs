@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" xmlns:opf="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="{{ unique-id }}">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    {{#each identifiers}}
+    <dc:identifier{{#if id}} id="{{ id }}"{{/if}}>{{ content }}</dc:identifier>
+    {{/each}}
+   <dc:title>{{ document-title }}</dc:title>
+   <dc:language>{{ language }}</dc:language>
+   {{#if people.publisher.length}}{{#each people.publisher}}<dc:publisher>{{ this }}</dc:publisher>{{/each}}{{/if}}
+   {{#if people.creator.length}}{{#each people.creator}}<dc:creator>{{ this }}</dc:creator>{{/each}}{{/if}}
+   {{#if people.contributor.length}}{{#each people.contributor}}<dc:contributor>{{ this }}</dc:contributor>{{/each}}{{/if}}
+   {{#each subject}}<dc:subject>{{ this }}</dc:subject>{{/each}}
+   <dc:rights>{{ rights }}</dc:rights>
+   <meta property="dcterms:modified">{{ modified }}</meta>
+  </metadata>
+  <manifest>
+    {{#each items}}
+    <item id="{{ id }}" href="{{ link }}" media-type="{{ mime }}"{{#if property }} properties="{{ property }}"{{/if}}/>
+    {{/each}}
+  </manifest>
+  <spine toc="ncx">
+    {{#each collections.spine}}
+    <itemref idref="{{ id }}"/>
+    {{/each}}
+  </spine>
+  <guide>
+    {{#each collections.guide}}
+    <reference title="{{ title }}" type="{{ type }}" href="{{ link }}"/>
+    {{/each}}
+  </guide>
+</package>

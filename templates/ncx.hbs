@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+
+  <head>
+    <meta name="dtb:uid" content="{{#each identifiers}}{{#if id}}{{ content }}{{/if}}{{/each}}"/>
+    <meta name="dtb:depth" content="1"/>
+  </head>
+
+  <docTitle>
+    <text>{{ document-title }}</text>
+  </docTitle>
+
+  <navMap>
+    {{#each collections.spine}}{{#if isContent}}<navPoint id="{{ id }}" playOrder="{{ order }}">
+      <navLabel><text>{{ title }}</text></navLabel>
+      <content src="{{ link }}"/>
+    </navPoint>{{/if}}{{/each}}
+  </navMap>
+  
+</ncx>

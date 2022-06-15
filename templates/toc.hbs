@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+
+  <head>
+    <meta charset="utf-8"/>
+    <title>{{ title }}</title>
+  </head>
+
+  <body>
+      <nav id="toc" epub:type="toc">
+        <h1 class="frontmatter">{{ title }}</h1>
+        <ol class="contents">{{#each collections.spine}}{{#if isContent}}
+            <li><a href="{{ link }}">{{ title }}</a></li>
+        {{/if}}{{/each}}</ol>
+      </nav>
+  </body>
+
+</html>

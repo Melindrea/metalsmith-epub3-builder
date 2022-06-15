@@ -1,0 +1,50 @@
+{
+  "name": "name",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "java -jar bin/epubcheck-4.2.6/epubcheck.jar name.epub",
+    "compile": "./bin/compile"
+  },
+  "author": "Antonius M. Hogebrandt",
+  "license": "ISC",
+  "epubcheck": "4.2.6",
+  "epub": {
+    "metadata": {
+      "unique-id": "BookId",
+      "filename": "of-ashes-and-ocean.epub",
+      "document-title": "Novel title",
+      "people": {
+        "publisher": ["publisher"],
+        "creator": ["Marie Hogebrandt"],
+        "contributor": []
+      },
+      "identifiers": [
+        {
+          "content": "no-isbn"
+        },
+        {
+          "id": "BookId",
+          "content": "978-3-86680-192-9"
+        }
+      ],
+      "language": "en",
+      "description": "",
+      "subject": [],
+      "rights": "© copyright notice"
+    }
+  },
+  "devDependencies": {
+    "@metalsmith/collections": "^1.2.1",
+    "@metalsmith/layouts": "^2.5.1",
+    "@metalsmith/markdown": "^1.6.0",
+    "jstransformer-handlebars": "^1.2.0",
+    "luxon": "^2.4.0",
+    "metalsmith": "^2.5.0",
+    "metalsmith-discover-helpers": "^0.1.1",
+    "metalsmith-discover-partials": "^0.1.2",
+    "metalsmith-include-files": "^0.1.10",
+    "mime-types": "^2.1.35"
+  }
+}
