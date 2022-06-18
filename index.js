@@ -17,6 +17,55 @@ const Metalsmith  = require('metalsmith'),
     epub = require('./package').epub,
     directory = 'OEBPS';
 
+function newFiles(files, metalsmith) {
+    // This is going to be creating toc.ncx and add layout: ncx.hbs as frontmatter
+    /*let newFilePath = directory + '/toc.ncx',
+        fileObject = {
+            layout: 'ncx.hbs',
+            mode: '0664',
+            path: newFilePath,
+            contents: Buffer.from('', 'utf8')
+        };
+
+    files[newFilePath] = fileObject;/*
+    /*
+    {
+  order: 0,
+  collection: [ 'spine', 'guide' ],
+  title: 'Table of Contents',
+  layout: 'toc.hbs',
+  contents: <Buffer >,
+  mode: '0664',
+  stats: Stats {
+    dev: 16777225,
+    mode: 33204,
+    nlink: 1,
+    uid: 501,
+    gid: 20,
+    rdev: 0,
+    blksize: 4096,
+    ino: 119219392,
+    size: 88,
+    blocks: 8,
+    atimeMs: 1655329939031.4592,
+    mtimeMs: 1655327291330.785,
+    ctimeMs: 1655327291330.785,
+    birthtimeMs: 1415000808000,
+    atime: 2022-06-15T21:52:19.031Z,
+    mtime: 2022-06-15T21:08:11.331Z,
+    ctime: 2022-06-15T21:08:11.331Z,
+    birthtime: 2014-11-03T07:46:48.000Z
+  },
+  path: 'OEBPS/toc.xhtml',
+  mime: 'application/xhtml+xml',
+  type: 'toc',
+  property: 'nav',
+  id: 'toc',
+  link: 'toc.xhtml'
+}
+*/
+}
+
 function sortOrder(a, b) {
     let aNum, bNum
 
@@ -46,7 +95,11 @@ function updatePackage(files, metalsmith) {
             // We're not wanting the file itself in there
             return;
         }
-        // id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"
+        if (path.includes('container.xml')) {
+            // Also don't want the container here
+            return;
+        }
+
         let file = files[path],
             item = {
                 'id': file['id'],
@@ -132,13 +185,13 @@ function renameFiles(files, metalsmith) {
 function check(files, metalsmith) {
 
     Object.keys(files).forEach(path => {
-        //console.log(path);
+        console.log(path);
         /*let basename = nodepath.basename(path);
         let suffix = nodepath.extname(path).replace(/^\./, '');
 
         console.log(basename);
         console.log(suffix);*/
-        //console.log(files[path]);
+        console.log(files[path]);
     });
     //console.log(metalsmith.metadata());
 
@@ -150,10 +203,13 @@ function check(files, metalsmith) {
 // source files and passes it on to the plugins.
 Metalsmith(__dirname)
     .metadata(epub.metadata)
-    .source('./src')            // source directory
-    .destination('./build')     // destination directory
+    //.source('./' + epub.directory.source)            // source directory
+    //.destination('./'  + epub.directory.destination)     // destination directory
+    .source(epub.directories.source)            // source directory
+    .destination(epub.directories.destination)     // destination directory
     .clean(true)                // clean destination before
     .ignore('**/*.DS_Store')
+    .use(newFiles)
     // Use @metalsmith/markdown to convert
     // our source files' content from markdown
     // to HTML fragments.
@@ -172,14 +228,11 @@ Metalsmith(__dirname)
     }))
     .use(attachMetadata)
     .use(updatePackage)
-    .use(include({
-        '' : [
-            'include/*' // Static files
-        ],
+    /*.use(include({
         'META-INF': [
             'include/META-INF/*'
         ]
-    }))
+    }))*/
     //.use(check)
 
     .use(discoverHelpers())
