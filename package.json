@@ -1,52 +1,54 @@
 {
-  "name": "name.epub",
-  "version": "0.0.1",
-  "description": "",
+  "name": "melindrea/metalsmith-epub3-builder",
+  "version": "0.5.0",
+  "description": "A project that takes markdown and assets and turns them into a valid (3.2 rules) epub.",
   "main": "index.js",
   "scripts": {
     "test": "node bin/_commands -t",
-    "precompile": "node bin/_commands -c",
+    "clean": "node bin/_commands -c",
+    "precompile": "npm run clean",
     "compile": "node bin/_commands -b",
     "postcompile": "npm run test",
-    "prebuild": "node index",
-    "build": "npm run compile"
+    "build": "node index",
+    "preepub": "npm run build",
+    "epub": "npm run compile",
+    "start": "http-server build/OEBPS"
   },
   "author": "Antonius M. Hogebrandt",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "epubcheck": "4.2.6",
   "epub": {
     "directories": {
       "destination": "build",
-      "source": "src",
+      "source": "files/src",
       "epub": "epub",
-      "includes": "include"
+      "includes": "include",
+      "templates": "files/templates",
+      "content": "OEBPS"
     },
     "metadata": {
       "unique-id": "BookId",
-      "filename": "name.epub",
+      "filename": "<name>.epub",
       "document-title": "Novel title",
       "people": {
         "publisher": [
           "publisher"
         ],
         "creator": [
-          "Marie Hogebrandt"
+          "Author"
         ],
         "contributor": []
       },
       "identifiers": [
         {
-          "content": "no-isbn"
-        },
-        {
           "id": "BookId",
-          "content": "978-3-86680-192-9"
+          "content": "some-identifier"
         }
       ],
       "language": "en",
       "description": "",
       "subject": [],
-      "rights": "© copyright notice"
+      "rights": ""
     }
   },
   "devDependencies": {
@@ -54,12 +56,12 @@
     "@metalsmith/layouts": "^2.5.1",
     "@metalsmith/markdown": "^1.6.0",
     "fs-extra": "^10.1.0",
+    "http-server": "^14.1.1",
     "jstransformer-handlebars": "^1.2.0",
     "luxon": "^2.4.0",
     "metalsmith": "^2.5.0",
     "metalsmith-discover-helpers": "^0.1.1",
     "metalsmith-discover-partials": "^0.1.2",
-    "metalsmith-include-files": "^0.1.10",
     "mime-types": "^2.1.35",
     "minimist": "^1.2.6"
   }

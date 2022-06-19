@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 const   fs = require('fs-extra'),
-        //{ exec } = require('child_process'),
         execSync = require('child_process').execSync,
         minimist = require('minimist'),
         { exit } = require('process'),
@@ -17,6 +16,13 @@ const   fs = require('fs-extra'),
 
 
 const main = async () => {
+    if (args.v) {
+        console.log('Commands:');
+        console.log('Zip Mimetype: ' + zipMimetype);
+        console.log('Zip Remainder: ' + zipRest);
+        console.log('Epub check: ' + testCommand);
+    }
+
     if (args.c) {
         clean();
     }
@@ -26,13 +32,6 @@ const main = async () => {
 
     if (args.t) {
         test();
-    }
-
-    if (args.v) {
-        console.log('Commands:');
-        console.log('Zip Mimetype: ' + zipMimetype);
-        console.log('Zip Remainder: ' + zipRest);
-        console.log('Epub check: ' + testCommand);
     }
 }
 

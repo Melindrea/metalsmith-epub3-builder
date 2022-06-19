@@ -1,0 +1,3 @@
+---
+layout: special/package.hbs
+---

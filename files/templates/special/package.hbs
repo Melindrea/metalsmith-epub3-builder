@@ -10,7 +10,8 @@
    {{#if people.creator.length}}{{#each people.creator}}<dc:creator>{{ this }}</dc:creator>{{/each}}{{/if}}
    {{#if people.contributor.length}}{{#each people.contributor}}<dc:contributor>{{ this }}</dc:contributor>{{/each}}{{/if}}
    {{#each subject}}<dc:subject>{{ this }}</dc:subject>{{/each}}
-   <dc:rights>{{ rights }}</dc:rights>
+   {{#if description}}<dc:description>{{ description }}</dc:description>{{/if}}
+   {{#if rights}}<dc:rights>{{ rights }}</dc:rights>{{/if}}
    <meta property="dcterms:modified">{{ modified }}</meta>
   </metadata>
   <manifest>
@@ -20,7 +21,7 @@
   </manifest>
   <spine toc="ncx">
     {{#each collections.spine}}
-    <itemref idref="{{ id }}"/>
+    <itemref idref="{{ id }}"{{#if nonlinear}} linear="no"{{/if}}/>
     {{/each}}
   </spine>
   <guide>

@@ -1,0 +1,3 @@
+---
+layout: special/ncx.hbs
+---
